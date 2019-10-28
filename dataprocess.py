@@ -1,24 +1,38 @@
 import os
 import os.path
 import nltk
-from nltk.tokenize import sent_tokenize
-filedirham='/Users/kejunchen/Desktop/hamdebug/'
-filenames=os.listdir(filedirham)
-file=open('ham_training.txt','w')
-for filename in filenames:
-    filepath=filedirham+filename
-    f = open(filepath, 'r')
-    for line in open(filepath):
-        file.writelines(line)
-    file.write('\n')
-file.close
-file=open('spam_training.txt','w')
-filedirspam='/Users/kejunchen/Desktop/spamdebug/'
-filenames=os.listdir(filedirspam)
-for filename in filenames:
-    filepath=filedirspam+filename
-    f = open(filepath, 'r')
-    for line in open(filepath):
-        file.writelines(line)
-    file.write('\n')
-file.close
+filepath='/Users/kejunchen/Desktop/hamdebug/'
+filenames=os.listdir(filepath)
+datalist = []
+datapath = []
+for i in filenames:
+    if os.path.splitext(i)[1] == '.txt':
+        datalist.append(i)
+for text_file in datalist:
+        datapath.append(filepath+text_file)
+with open('hamtrain.txt', 'w') as fh:
+    for text_file in datapath:
+        data = open(text_file, 'r')
+        fh.write(data.read())
+fh.close()
+
+filepath='/Users/kejunchen/Desktop/spamdebug/'
+filenames=os.listdir(filepath)
+datalist = []
+datapath = []
+for i in filenames:
+    if os.path.splitext(i)[1] == '.txt':
+        datalist.append(i)
+for text_file in datalist:
+        datapath.append(filepath+text_file)
+with open('spamtrain.txt', 'w') as fh:
+    for text_file in datapath:
+        data = open(text_file, 'r')
+        fh.write(data.read())
+fh.close()
+
+with open('train.txt','w') as fh:
+    data = open("hamtrain.txt",'r')
+    fh.write(data.read())
+    data = open("spamtrain.txt", 'r')
+    fh.write(data.read())
