@@ -1,6 +1,7 @@
 import os
 import os.path
 import nltk
+# combine the training ham data into one .txt file
 filepath='/Users/kejunchen/Desktop/hamdebug/'
 filenames=os.listdir(filepath)
 datalist = []
@@ -16,6 +17,7 @@ with open('hamtrain.txt', 'w') as fh:
         fh.write(data.read())
 fh.close()
 
+# combine the training spam data into one .txt file
 filepath='/Users/kejunchen/Desktop/spamdebug/'
 filenames=os.listdir(filepath)
 datalist = []
