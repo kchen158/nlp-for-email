@@ -28,6 +28,7 @@ for i in filenames:
 for text_file in datalist:
         datapath.append(filepath+text_file)
 allposterior_ham = [0 for i in range(len(datapath))]
+
 # import dictionary and probability
 with open("dictionary.txt",'r') as f:
     for line in f:
@@ -56,18 +57,18 @@ for filename in datapath:
     array = np.array(freq.items())
     freq_test = array[:, 1]
     freq_test = map(int,freq_test)
-    key_list = list(array[:, 0])
+    key_list = list(array[:, 0]) .                  # previous codes process the test data with the same format as trining data
     notinclass = [i for i in key_list if i not in diction]
     inclass = [i for i in key_list if i in diction]
     single_number = len(notinclass)
     single_probability= single_number * float(probability_single)
     m = int (-1)
-    posterior = single_probability
+    posterior = single_probability                # words in the test data but not in the training data, the sum of log(P(w/c))
     for feature in inclass:
         m = m + 1
         place = diction.index(feature)
-        freqency = probability[place]
-        repeat = freq_test[m]
+        freqency = probability[place]             # words in test data, index probability in training set, that is log(P(w/c)) 
+        repeat = freq_test[m]                     # words in both training list and test list, their repeat time in test data
         posterior_ham = posterior + freqency * repeat
     allposterior_ham [k] = posterior_ham
     k = k + 1
@@ -75,7 +76,7 @@ print(allposterior_ham)
 
 
 
-# spam situation
+# spam situation the same with ham situation. 
 
 
 datalist = []
