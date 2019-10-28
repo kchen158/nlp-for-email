@@ -12,7 +12,7 @@ from collections import Counter
 from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 # dictionary for ham
-'''
+
 f = open('hamtrain.txt','r')
 hamtrain = f.read()
 hamtrain = hamtrain.lower()
@@ -20,23 +20,24 @@ remove_chars = '[--@_!)(,`]'
 hamtrain=re.sub(remove_chars,'',hamtrain)
 disham_List = nltk.word_tokenize(hamtrain)
 stop_words = set(stopwords.words('english'))
-
 train_list = [word for word in disham_List if word not in stop_words]
+# the training_list is clean
+
 diction = {}
 overall = len(train_list)
 nonrepeat = len(set(train_list))
-denominator = math.log(overall + nonrepeat)
+denominator = math.log(overall + nonrepeat) . # log (size of vocubulary + non repeat words in the training list)
 freq = nltk.FreqDist(train_list)
 print(freq.items())
 array=np.array(freq.items())
 freq_train=array[:,1]
 freq_train = map(int, freq_train)
-smooth_freq = [i + 1 for i in freq_train]
+smooth_freq = [i + 1 for i in freq_train] .    # numerator + 1 for smooth
 logfreq = [math.log(i) for i in smooth_freq]
 probability = [i - denominator for i in logfreq]
-probability = np.array(probability)
+probability = np.array(probability)            # probability for words in the training list, P(w/class)
 
-probability_single = -denominator
+probability_single = -denominator              # condictional probability for the words that not appear in the training list.
 file=open('probability_single.txt','w')
 file.write(str(probability_single))
 file.close()
@@ -50,8 +51,12 @@ for i in diction:
     file.write(i)
     file.write('\n')
 file.close
-'''
-# dictionary for the spam
+
+
+
+
+
+# dictionary for the spam, the same with previous parts, just different class. 
 
 f = open('spamtrain.txt','r')
 spamtrain = f.read()
